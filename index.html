@@ -67,22 +67,23 @@
                             <div class="mt-10 sm:mt-12">
     
                                 <!-- This is a working waitlist form. Create your access key from https://web3forms.com/s to setup.  -->
-                                <form class="sm:mx-auto sm:max-w-xl lg:mx-0" action="https://api.web3forms.com/submit">
-                                    <div class="sm:flex ">
-                                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEy_HERE">
-                                        <input type="hidden" name="subject" value="New Waitlist">
-                                        <div class="w-full flex-1 "><label for="email" class="sr-only ">Email
-                                                address</label><input id="email" type="email" placeholder="JOIN OUR WAITLIST -  GET 6 MONTHS FREE "
-                                                class="  block w-full rounded-md border-0 bg-gray-200 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                                                value="" autocomplete="off" /></div>
-                                        <div class="mt-3 sm:mt-0 sm:ml-3"><button type="submit"
+                                <form id="subscribe-form" class="sm:mx-auto sm:max-w-xl lg:mx-0">
+                                    <div class="sm:flex">
+                                        <div class="w-full flex-1">
+                                            <label for="email" class="sr-only">Email address</label>
+                                            <input id="email" type="email" placeholder="JOIN OUR WAITLIST - GET 6 MONTHS FREE"
+                                                class="block w-full rounded-md border-0 bg-gray-200 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                                                value="" autocomplete="off" />
+                                        </div>
+                                        <div class="mt-3 sm:mt-0 sm:ml-3">
+                                            <button type="submit"
                                                 class="block w-full rounded-md bg-pink-500 py-3 px-4 font-medium text-white shadow hover:bg-pink-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-gray-900">Join
-                                                Waitlist</button></div>
+                                                Waitlist</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
-                            <p class="mt-3 tex-center  font-bold text-white sm:mt-5 sm:text-sm lg:text-sm xl:text-sm"> 
-                                <p class=" tex-center  font-bold  text-white sm:text-sm lg:text-sm xl:text-sm"></p>
+                        
                         </div>
 
                         
@@ -95,6 +96,40 @@
             </div>
         </div>
     </div>
+<script>
+    document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const webhookUrl = 'https://hooks.zapier.com/hooks/catch/18874110/3jv4rn0'; // Reemplaza con tu URL de webhook de Zapier
+
+        console.log('Sending email:', email);
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            if (response.ok) {
+                console.log('Response:', response);
+                alert('Subscription successful! Check your email for a welcome message.');
+            } else {
+                console.log('Response:', response);
+                alert('Subscription failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+</script>
+
+
+
     <!--
     <footer class="bg-white">
         <div class="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
@@ -122,6 +157,8 @@
         </div>
     </footer>
     -->
+
+
 </body>
 
 </html>
