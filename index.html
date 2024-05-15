@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waitlist Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <section>
+        <div class="px-8 py-12 mx-auto md:px-12 lg:px-32 max-w-7xl">
+            <div class="p-2 border bg-gray-50 rounded-3xl">
+                <div class="p-10 text-center bg-white border shadow-lg md:p-20 rounded-3xl">
+                    <span class="text-sm font-semibold text-gray-500 uppercase">❖ windstatic</span>
+                    <p class="mt-8 text-4xl font-semibold tracking-tighter text-black">
+                        Subscribe for the latest updates
+                    </p>
+                    <p class="mx-auto mt-4 text-base font-medium text-gray-500 text-balance">
+                        Join our community to receive updates, design tips, and exclusive
+                        access to our newest and most elegant themes. Your journey to a
+                        sophisticated digital presence begins here.
+                    </p>
+                    <form id="subscribe-form" class="w-full max-w-xs mx-auto mt-8">
+                        <div class="flex flex-col w-full gap-2 lg:flex-row">
+                            <label for="email-address" class="sr-only">Email address</label>
+                            <input name="email" id="email-address" type="email" autocomplete="email"
+                                placeholder="Enter your email" aria-describedby="emailHelp" required=""
+                                class="block w-full h-12 px-4 py-2 text-blue-500 duration-200 border rounded-lg appearance-none bg-chalk border-zinc-300 placeholder-zinc-300 focus:border-zinc-300 focus:outline-none focus:ring-zinc-300 sm:text-sm">
+                            <span id="emailHelp" class="sr-only">Please enter your email address to subscribe.</span>
+                            <button type="submit" aria-label="Primary action"
+                                class="inline-flex items-center justify-center w-full h-12 gap-3 px-5 py-3 font-medium text-white duration-200 bg-gray-900 md:w-auto rounded-xl hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('subscribe-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email-address').value;
+            const webhookUrl = 'TU_WEBHOOK_URL_DE_ZAPIER'; // Reemplaza con tu URL de webhook de Zapier
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email }),
+                });
+
+                if (response.ok) {
+                    alert('Subscription successful! Check your email for a welcome message.');
+                } else {
+                    alert('Subscription failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>
