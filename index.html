@@ -71,8 +71,14 @@
                             <form id="subscribe-form" class="sm:mx-auto sm:max-w-xl lg:mx-0">
                                 <div class="sm:flex">
                                     <div class="w-full flex-1">
+                                        <label for="name" class="sr-only">Nombre</label>
+                                        <input id="name" type="text" placeholder="Name"
+                                            class="block w-full rounded-md border-0 bg-gray-200 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                                            value="" autocomplete="off" />
+                                    </div>
+                                    <div class="w-full flex-1 mt-3 sm:mt-0 sm:ml-3">
                                         <label for="email" class="sr-only">Email address</label>
-                                        <input id="email" type="email" placeholder="JOIN OUR WAITLIST - GET 6 MONTHS FREE"
+                                        <input id="email" type="email" placeholder="Email"
                                             class="block w-full rounded-md border-0 bg-gray-200 px-4 py-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
                                             value="" autocomplete="off" />
                                     </div>
@@ -102,26 +108,29 @@
                                 };
 
                                 // Inicializar Firebase
-                                const app = initializeApp(firebaseConfig);
-                                const database = getDatabase(app);
+                                // Inicializar Firebase
+                                    const app = initializeApp(firebaseConfig);
+                                    const database = getDatabase(app);
 
-                                document.getElementById('subscribe-form').addEventListener('submit', function (event) {
-                                    event.preventDefault();
-                                    const email = document.getElementById('email').value;
-                                    if (email) {
-                                        const dbRef = ref(database, 'subscribers');
-                                        push(dbRef, {
-                                            email: email
-                                        }).then(function () {
-                                            alert('¡Gracias por suscribirte!');
-                                        }).catch(function (error) {
-                                            console.error('Error al suscribirse:', error);
-                                        });
-                                    } else {
-                                        alert('Por favor, introduce un correo electrónico válido.');
-                                    }
-                                });
-                            </script>
+                                    document.getElementById('subscribe-form').addEventListener('submit', function (event) {
+                                        event.preventDefault();
+                                        const name = document.getElementById('name').value;
+                                        const email = document.getElementById('email').value;
+                                        if (name && email) {
+                                            const dbRef = ref(database, 'subscribers');
+                                            push(dbRef, {
+                                                name: name,
+                                                email: email
+                                            }).then(function () {
+                                                alert('¡Gracias por suscribirte!');
+                                            }).catch(function (error) {
+                                                console.error('Error al suscribirse:', error);
+                                            });
+                                        } else {
+                                            alert('Por favor, introduce un nombre y un correo electrónico válidos.');
+                                        }
+                                    });
+                                </script>
                             </div>
                         
                         </div>
